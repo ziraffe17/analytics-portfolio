@@ -1,0 +1,158 @@
+erDiagram
+    %% ==========================================
+    %% あゆみ（就労移行支援事業所）ER図
+    %% ==========================================
+    
+    %% リレーション定義
+    users ||--o{ attendance_plans : "has"
+    users ||--o{ attendance_records : "has"
+    users ||--o{ daily_reports_morning : "writes"
+    users ||--o{ daily_reports_evening : "writes"
+    users ||--o{ interviews : "participates"
+    
+    staffs ||--o{ audit_logs : "creates"
+    staffs ||--o{ attendance_records : "approves"
+    staffs ||--o{ attendance_records : "locks"
+    
+    %% ==========================================
+    %% テーブル定義
+    %% ==========================================
+    
+    users {
+        bigint id PK "利用者ID"
+        string name "氏名"
+        string name_kana "氏名かな"
+        string login_code UK "ログインID"
+        string email UK "メール"
+        date start_date "利用開始日"
+        date end_date "利用終了日"
+        longText care_notes_enc "機微情報(暗号化)"
+        boolean is_active "有効フラグ"
+        timestamp last_login_at "最終ログイン"
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at "ソフトデリート"
+    }
+    
+    staffs {
+        bigint id PK "スタッフID"
+        string name "氏名"
+        string email UK "メール"
+        enum role "役割(admin/staff)"
+        string two_factor_email_code "2FAコード"
+        timestamp two_factor_expires_at "2FA期限"
+        boolean is_active "有効フラグ"
+        timestamp last_login_at "最終ログイン"
+        timestamp created_at
+        timestamp updated_at
+        timestamp deleted_at "ソフトデリート"
+    }
+    
+    attendance_plans {
+        bigint id PK
+        bigint user_id FK "利用者ID"
+        date plan_date "予定日"
+        enum plan_time_slot "時間帯(am/pm/full)"
+        enum plan_type "種別(onsite/remote/off)"
+        text note "備考"
+        boolean is_holiday "祝日フラグ"
+        string holiday_name "祝日名"
+        enum template_source "テンプレート元"
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    attendance_records {
+        bigint id PK
+        bigint user_id FK "利用者ID"
+        date record_date "出席日"
+        enum record_time_slot "時間帯(am/pm/full)"
+        enum attendance_type "種別(onsite/remote/absent)"
+        text note "備考"
+        enum source "登録元(self/staff)"
+        boolean is_approved "承認済み"
+        bigint approved_by FK "承認者ID"
+        timestamp approved_at "承認日時"
+        boolean is_locked "ロック済み"
+        bigint locked_by FK "ロック者ID"
+        timestamp locked_at "ロック日時"
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    daily_reports_morning {
+        bigint id PK
+        bigint user_id FK "利用者ID"
+        date report_date "報告日"
+        tinyint sleep_rating "睡眠評価(1-3)"
+        tinyint stress_rating "ストレス評価(1-3)"
+        tinyint meal_rating "食事評価(1-3)"
+        time bed_time_local "就寝時刻JST"
+        time wake_time_local "起床時刻JST"
+        int sleep_minutes "睡眠時間(分)"
+        tinyint mid_awaken_count "中途覚醒回数"
+        boolean is_early_awaken "早朝覚醒"
+        boolean is_breakfast_done "朝食"
+        boolean is_bathing_done "入浴"
+        boolean is_medication_taken "服薬"
+        tinyint mood_score "気分(1-10)"
+        int sign_good "良好サイン"
+        int sign_caution "注意サイン"
+        int sign_bad "不調サイン"
+        text note "備考"
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    daily_reports_evening {
+        bigint id PK
+        bigint user_id FK "利用者ID"
+        date report_date "報告日"
+        text training_summary "訓練内容"
+        text training_reflection "振り返り"
+        text condition_note "体調"
+        text other_note "その他"
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    interviews {
+        bigint id PK
+        bigint user_id FK "利用者ID"
+        datetime interview_at "面談日時UTC"
+        text summary "面談内容"
+        text next_action "次回アクション"
+        bigint created_by FK "作成者"
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    audit_logs {
+        bigint id PK
+        string actor_type "操作者種別"
+        bigint actor_id "操作者ID"
+        timestamp occurred_at "発生日時"
+        enum action "操作(login/create/update等)"
+        string entity "対象エンティティ"
+        bigint entity_id "対象ID"
+        json diff_json "変更差分"
+        string ip "IPアドレス"
+        string user_agent "UA"
+        json meta "メタ情報"
+    }
+    
+    holidays {
+        date holiday_date PK "祝日日付JST"
+        string name "祝日名"
+        enum source "登録元"
+        datetime imported_at "取込日時"
+    }
+    
+    settings {
+        string key PK "設定キー"
+        text value "設定値"
+        string type "データ型"
+        text description "説明"
+        timestamp created_at
+        timestamp updated_at
+    }
