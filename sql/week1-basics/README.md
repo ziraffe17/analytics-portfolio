@@ -178,3 +178,45 @@ year | current_year | prev_year | yoy_change | yoy_growth_rate
 **学習時間**: 約2時間  
 **難易度**: ★★★☆☆  
 **重要度**: ★★★★★
+
+
+## Task18完了: LAG/LEAD関数実践
+
+### 学んだパターン
+
+#### 1. 基本的な前年比較
+```sql
+LAG(total_count, 1) OVER (ORDER BY year)
+```
+
+#### 2. 複数年前との比較
+```sql
+LAG(total_count, 3) OVER (ORDER BY year)  -- 3年前
+```
+
+#### 3. トレンド判定
+- 3期連続の増減を判定
+- CASE式でトレンドを分類
+
+#### 4. LEAD（将来予測）
+```sql
+LEAD(total_count, 1) OVER (ORDER BY year)
+```
+
+#### 5. ピークからの変化率
+```sql
+MAX(total_count) OVER ()  -- 全期間の最大値
+```
+
+#### 6. PARTITION BYで複数エンティティ比較
+```sql
+LAG(...) OVER (PARTITION BY name ORDER BY year)
+```
+
+### 実務での活用
+- 売上の前年比分析
+- 在庫トレンドの把握
+- KPIの推移分析
+- 目標との差異分析
+
+### 完了日: 2025-10-16
