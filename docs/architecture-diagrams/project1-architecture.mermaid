@@ -1,0 +1,45 @@
+---
+title: プロジェクト1 - 教育データ分析基盤アーキテクチャ
+---
+
+graph TB
+    subgraph "Data Source"
+        A[Kaggle CSV<br/>Student Performance<br/>1000 rows × 8 columns]
+    end
+
+    subgraph "Google Cloud Platform"
+        B[BigQuery<br/>Dataset: education_analytics]
+        
+        subgraph "Raw Layer"
+            C[raw_student_performance<br/>元データそのまま]
+        end
+        
+        subgraph "dbt Transformation"
+            D1[Staging Layer<br/>stg_students<br/>stg_test_scores]
+            D2[Intermediate Layer<br/>int_student_scores<br/>int_demographics]
+            D3[Mart Layer<br/>mart_student_performance<br/>mart_score_by_demographics]
+        end
+    end
+
+    subgraph "Visualization"
+        E[Looker Studio<br/>Dashboard]
+    end
+
+    subgraph "Version Control"
+        F[GitHub<br/>analytics-portfolio]
+    end
+
+    A -->|CSV Upload| C
+    C -->|ref source| D1
+    D1 -->|ref staging| D2
+    D2 -->|ref intermediate| D3
+    D3 -->|Query| E
+    D1 & D2 & D3 -->|Git Push| F
+
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style D1 fill:#e8f5e9
+    style D2 fill:#e8f5e9
+    style D3 fill:#e8f5e9
+    style E fill:#f3e5f5
+    style F fill:#fce4ec

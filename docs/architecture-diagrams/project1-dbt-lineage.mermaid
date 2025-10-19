@@ -1,0 +1,36 @@
+---
+title: プロジェクト1 - dbtモデル依存関係
+---
+
+graph TD
+    Source[source: raw_student_performance]
+    
+    Stg1[stg_students]
+    Stg2[stg_test_scores]
+    
+    Int1[int_student_scores]
+    Int2[int_demographics]
+    
+    Mart1[mart_student_performance]
+    Mart2[mart_score_by_demographics]
+    
+    Source -->|ref| Stg1
+    Source -->|ref| Stg2
+    
+    Stg1 -->|ref| Int1
+    Stg2 -->|ref| Int1
+    Stg1 -->|ref| Int2
+    
+    Int1 -->|ref| Mart1
+    Int2 -->|ref| Mart1
+    Int2 -->|ref| Mart2
+    
+    classDef sourceStyle fill:#fff4e1,stroke:#ff9800
+    classDef stagingStyle fill:#e8f5e9,stroke:#4caf50
+    classDef intermediateStyle fill:#e3f2fd,stroke:#2196f3
+    classDef martStyle fill:#f3e5f5,stroke:#9c27b0
+    
+    class Source sourceStyle
+    class Stg1,Stg2 stagingStyle
+    class Int1,Int2 intermediateStyle
+    class Mart1,Mart2 martStyle

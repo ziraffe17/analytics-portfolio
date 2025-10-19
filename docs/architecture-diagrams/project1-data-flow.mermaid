@@ -1,0 +1,50 @@
+---
+title: プロジェクト1 - データフロー詳細
+---
+
+flowchart LR
+    subgraph "Source"
+        A[(Kaggle CSV)]
+    end
+
+    subgraph "Raw Layer"
+        B[(raw_student_performance<br/>8 columns, 1000 rows)]
+    end
+
+    subgraph "Staging Layer"
+        C1[(stg_students<br/>student_id, gender,<br/>race, parent_edu)]
+        C2[(stg_test_scores<br/>student_id, math,<br/>reading, writing)]
+    end
+
+    subgraph "Intermediate Layer"
+        D1[(int_student_scores<br/>平均点・合計点計算)]
+        D2[(int_demographics<br/>属性別集約)]
+    end
+
+    subgraph "Mart Layer"
+        E1[(mart_student_performance<br/>総合パフォーマンス)]
+        E2[(mart_score_by_demographics<br/>属性別分析)]
+    end
+
+    subgraph "BI Layer"
+        F[📊 Looker Studio<br/>ダッシュボード]
+    end
+
+    A -->|BigQuery Upload| B
+    B -->|SELECT * + クリーニング| C1
+    B -->|SELECT scores| C2
+    C1 & C2 -->|JOIN + 統計計算| D1
+    C1 -->|GROUP BY 属性| D2
+    D1 & D2 -->|ビジネスロジック| E1
+    D2 -->|最終集約| E2
+    E1 & E2 -->|SQL Query| F
+
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C1 fill:#e8f5e9
+    style C2 fill:#e8f5e9
+    style D1 fill:#c8e6c9
+    style D2 fill:#c8e6c9
+    style E1 fill:#a5d6a7
+    style E2 fill:#a5d6a7
+    style F fill:#f3e5f5

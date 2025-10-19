@@ -1,0 +1,65 @@
+---
+title: プロジェクト2 - 就労支援SaaS『あゆみ』データ分析基盤
+---
+
+graph TB
+    subgraph "Application Layer"
+        A[Laravel App<br/>就労支援SaaS]
+        A1[Web UI<br/>利用者・スタッフ]
+    end
+
+    subgraph "Operational Database"
+        B[MySQL<br/>Production DB]
+        
+        subgraph "Core Tables"
+            C1[users<br/>利用者マスタ]
+            C2[attendance_records<br/>出席実績]
+            C3[daily_reports_morning<br/>朝日報]
+            C4[daily_reports_evening<br/>夕日報]
+        end
+    end
+
+    subgraph "Analytics Layer"
+        D[BigQuery<br/>Data Warehouse]
+        
+        subgraph "Raw Layer"
+            E1[raw_users]
+            E2[raw_attendance]
+            E3[raw_morning_reports]
+            E4[raw_evening_reports]
+        end
+        
+        subgraph "dbt Transformation"
+            F1[Staging Layer<br/>stg_users<br/>stg_attendance<br/>stg_morning_reports<br/>stg_evening_reports]
+            F2[Intermediate Layer<br/>int_monthly_attendance<br/>int_health_metrics<br/>int_training_hours]
+            F3[Mart Layer<br/>mart_attendance_summary<br/>mart_mental_health_trend<br/>mart_training_effectiveness]
+        end
+    end
+
+    subgraph "Visualization"
+        G[Looker Studio<br/>Management Dashboard]
+    end
+
+    subgraph "Version Control"
+        H[GitHub<br/>dbt-ayumi]
+    end
+
+    A1 -->|CRUD Operations| A
+    A -->|Write| B
+    C1 & C2 & C3 & C4 ---|MySQL Tables| B
+    B -->|ETL Daily| E1 & E2 & E3 & E4
+    E1 & E2 & E3 & E4 -->|ref source| F1
+    F1 -->|ref staging| F2
+    F2 -->|ref intermediate| F3
+    F3 -->|Query| G
+    F1 & F2 & F3 -->|Git Push| H
+
+    style A fill:#e1f5ff
+    style A1 fill:#e1f5ff
+    style B fill:#fff4e1
+    style D fill:#e8f5e9
+    style F1 fill:#e8f5e9
+    style F2 fill:#e8f5e9
+    style F3 fill:#e8f5e9
+    style G fill:#f3e5f5
+    style H fill:#fce4ec

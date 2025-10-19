@@ -1,0 +1,76 @@
+---
+title: プロジェクト2 - あゆみデータフロー詳細
+---
+
+flowchart TD
+    subgraph "Production"
+        A1[利用者]
+        A2[スタッフ]
+        B[Laravel App]
+        C[(MySQL<br/>Production DB)]
+    end
+
+    subgraph "ETL Process"
+        D[Daily ETL Job<br/>Airflow / Cloud Composer]
+    end
+
+    subgraph "Data Warehouse"
+        E[(BigQuery<br/>Raw Layer)]
+    end
+
+    subgraph "dbt Models"
+        F1[(Staging<br/>データクリーニング)]
+        F2[(Intermediate<br/>集約・結合)]
+        F3[(Mart<br/>ビジネス指標)]
+    end
+
+    subgraph "Analytics"
+        G[📊 Looker Studio<br/>経営ダッシュボード]
+        H[📈 予測モデル<br/>出席率予測]
+    end
+
+    A1 & A2 -->|操作| B
+    B -->|CRUD| C
+    C -->|Extract| D
+    D -->|Load| E
+    E -->|dbt run| F1
+    F1 -->|Transform| F2
+    F2 -->|Build| F3
+    F3 -->|Query| G
+    F3 -->|ML Input| H
+
+    style A1 fill:#e3f2fd
+    style A2 fill:#e3f2fd
+    style B fill:#fff3e0
+    style C fill:#fce4ec
+    style D fill:#f3e5f5
+    style E fill:#e8f5e9
+    style F1 fill:#c8e6c9
+    style F2 fill:#a5d6a7
+    style F3 fill:#81c784
+    style G fill:#ce93d8
+    style H fill:#ba68c8
+```
+
+---
+
+## ✅ 作成した図の一覧
+
+1. ✅ **project1-architecture.mermaid** - プロジェクト1全体像
+2. ✅ **project2-architecture.mermaid** - プロジェクト2全体像
+3. ✅ **project1-data-flow.mermaid** - プロジェクト1データフロー
+4. ✅ **project1-dbt-lineage.mermaid** - プロジェクト1 dbt依存関係
+5. ✅ **project2-data-flow.mermaid** - プロジェクト2データフロー
+
+---
+
+## 📂 フォルダ構造
+```
+analytics-portfolio/
+├── docs/
+│   ├── architecture-diagrams/
+│   │   ├── project1-architecture.mermaid
+│   │   ├── project1-data-flow.mermaid
+│   │   ├── project1-dbt-lineage.mermaid
+│   │   ├── project2-architecture.mermaid
+│   │   └── project2-data-flow.mermaid
