@@ -19,16 +19,19 @@
 ## 📁 プロジェクト構成
 ```
 analytics-portfolio/
-├── sql/                    # SQL練習・学習記録
-│   └── week1-basics/      # Week 1: SQL基礎
-│       ├── task15-bigquery-basics.sql
-│       ├── task16-window-functions-theory.sql
-│       ├── task17-window-functions-practice.sql
-│       └── README.md
-├── dbt-project/           # dbtプロジェクト（Week 2-3）
-│   └── ayumi-data-platform/  # PJ1: 福祉事業所データ基盤
-├── data/                  # サンプルデータ
-├── docs/                  # ドキュメント・画像
+├── sql/                       # SQL練習・学習記録
+│   ├── week1-basics/         # Week 1: SQL基礎
+│   └── week1-leetcode/       # Week 1: LeetCode SQL問題
+├── project1-education/        # プロジェクト1: 教育データ分析（計画中）
+├── project2-ayumi/           # プロジェクト2: 就労支援SaaSデータ基盤
+│   ├── data/                 # サンプルデータ・生成スクリプト
+│   ├── docs/                 # ドキュメント（DB設計書など）
+│   └── README.md
+├── dbt-project/              # dbtプロジェクト（今後使用予定）
+├── notebooks/                # Jupyter Notebook分析
+├── data/                     # 共通サンプルデータ
+├── docs/                     # 共通ドキュメント
+├── images/                   # 画像ファイル
 └── README.md
 ```
 
@@ -38,41 +41,34 @@ analytics-portfolio/
 - ✅ BigQuery環境構築
 - ✅ BigQueryとMySQLの違い理解
 - ✅ ウィンドウ関数（ROW_NUMBER, RANK, LAG, LEAD）
-- ⏳ CTE、サブクエリ
-- ⏳ LeetCode SQL問題演習
+- ✅ CTE、サブクエリ
+- ✅ LeetCode SQL問題演習（Task19-40完了）
 
-### Week 2: dbt実装（PJ1）
+### Week 2-3: プロジェクト2 - あゆみデータ基盤
+- ✅ データベース設計
+- ✅ サンプルデータ生成スクリプト作成
+- ✅ BigQueryへのデータアップロード
 - ⏳ dbt Cloud環境構築
-- ⏳ あゆみデータ基盤構築
 - ⏳ staging/intermediate/marts層の実装
 - ⏳ データ品質テスト
-
-### Week 3: データ可視化・PJ2
-- ⏳ 教育データ分析プロジェクト
 - ⏳ Looker Studioダッシュボード作成
-- ⏳ Jupyter Notebookでの分析
 
-### Week 4: ポートフォリオ・書類作成
+### Week 4: プロジェクト1 - 教育データ分析
+- ⏳ Kaggle教育データ取得
+- ⏳ BigQueryへのデータ取り込み
+- ⏳ dbt実装
+- ⏳ Jupyter Notebookでの分析
+- ⏳ Looker Studioダッシュボード作成
+
+### Week 5-6: ポートフォリオ・書類作成
 - ⏳ GitHub Pagesでポートフォリオサイト公開
 - ⏳ 職務経歴書・履歴書作成
 - ⏳ 技術ブログ執筆
+- ⏳ 応募準備
 
 ## 📚 主要プロジェクト
 
-### プロジェクト1: あゆみデータ基盤（計画中）
-福祉事業所向けSaaSのデータ基盤構築
-
-**技術:**
-- MySQL → BigQuery連携
-- dbt（staging/intermediate/marts）
-- Looker Studio
-
-**成果物:**
-- 出席トレンド分析
-- プログラム効果測定
-- 支援計画進捗管理
-
-### プロジェクト2: 教育→就労分析（計画中）
+### プロジェクト1: 教育データ分析（計画中）
 教育から就労への移行成功要因分析
 
 **技術:**
@@ -86,29 +82,67 @@ analytics-portfolio/
 - 地域格差分析
 - 成功要因の特定
 
+**リンク:**
+- [プロジェクト詳細](./project1-education/)
+
+---
+
+### プロジェクト2: 就労支援SaaS データ分析基盤
+
+**福祉×データという差別化された専門性を証明するプロジェクト**
+
+#### 概要
+就労移行支援事業所向けSaaS『あゆみ』の運用データを活用し、データドリブンな支援の質向上と経営判断の可視化を実現。
+
+#### 技術スタック
+- **Application**: Laravel (PHP)
+- **DB**: MySQL → BigQuery
+- **Transformation**: dbt
+- **Visualization**: Looker Studio
+
+#### 差別化ポイント
+- ✅ 実務経験に基づく設計（現職での課題解決）
+- ✅ 福祉×データという希少な組み合わせ
+- ✅ セキュリティ・コンプライアンス対応（GDPR、監査ログ）
+- ✅ アプリケーションDB → DWH の全工程実装
+
+#### 主要KPI
+- 月次出席率: 90%以上
+- 平均ストレスレベル: 2.5以下
+- 月次訓練時間: 60時間以上
+- 事業所稼働率: 80%以上
+
+#### リンク
+- 📂 [プロジェクト詳細](./project2-ayumi/)
+- 🗂️ [データベース設計書](./project2-ayumi/docs/database_design.md)
+- 🚀 [BigQueryセットアップ手順](./project2-ayumi/docs/bigquery_upload_guide.md)
+- 🐍 [サンプルデータ生成スクリプト](./project2-ayumi/data/scripts/)
+
+---
+
 ## 💡 学習の記録
 
-### Task15: BigQueryで簡単なクエリ実行
-- 基本的なSELECT、WHERE、GROUP BY
-- 公開データセット（usa_names）の活用
-- **学び**: データの粒度に注意（州ごとのデータ）
+### Week 0: 環境構築
+- ✅ Task01-13: Google Cloud環境構築、BigQuery基礎
+- ✅ Task14: MySQLとBigQueryの違い理解
 
-### Task16: ウィンドウ関数基礎理論
-- ROW_NUMBER, RANK, DENSE_RANK
-- LAG, LEAD
-- 累積合計、移動平均
+### Week 1: SQL基礎・応用
+- ✅ Task15: BigQuery基本クエリ（SELECT、WHERE、GROUP BY）
+- ✅ Task16: ウィンドウ関数理論（ROW_NUMBER, RANK, LAG, LEAD）
+- ✅ Task17: ウィンドウ関数実践（usa_namesデータ分析）
+- ✅ Task18: CTE・サブクエリ
+- ✅ Task19-40: LeetCode SQL問題演習（22問完了）
 
-### Task17: ウィンドウ関数基礎実践
-- BigQueryで実際のデータ分析
-- トップ5の名前の推移分析
-- **学び**: GROUP BYで集計してからウィンドウ関数
+### Week 2: プロジェクト2 準備
+- ✅ Task41: データベース設計書作成
+- ✅ Task42: サンプルデータ生成スクリプト作成
+- ✅ Task43: BigQueryセットアップ
 
-### 完了済みタスク
-- Task01-13: 環境構築・基礎学習
-- Task14: MySQLとBigQueryの違い理解
-- Task15: BigQuery基本クエリ
-- Task16: ウィンドウ関数理論
-- Task17: ウィンドウ関数実践
+### 主な学び
+- データの粒度に注意（集計レベルの理解）
+- ウィンドウ関数は集計後に適用
+- CTEで複雑なクエリを読みやすく構造化
+- 実務データの設計とサンプルデータ生成の重要性
 
 ## 🔗 関連リンク
 
@@ -123,5 +157,5 @@ analytics-portfolio/
 
 ---
 
-**最終更新**: 2025年10月15日  
-**進捗**: Week 1 - SQL基礎学習中
+**最終更新**: 2025年11月5日
+**進捗**: Week 2 - プロジェクト2（あゆみデータ基盤）準備完了、dbt実装フェーズへ

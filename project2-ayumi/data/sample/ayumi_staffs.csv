@@ -1,0 +1,6 @@
+﻿id,name,email,password,role,is_active,created_at,updated_at,deleted_at
+1,管理 太郎,staff1@ayumi-support.example.com,hashed_password_here,admin,True,2025-06-01,2025-06-01,
+2,支援 花子,staff2@ayumi-support.example.com,hashed_password_here,staff,True,2025-06-01,2025-06-01,
+3,訓練 次郎,staff3@ayumi-support.example.com,hashed_password_here,staff,True,2025-06-01,2025-06-01,
+4,相談 美咲,staff4@ayumi-support.example.com,hashed_password_here,staff,True,2025-06-01,2025-06-01,
+5,指導 健太,staff5@ayumi-support.example.com,hashed_password_here,staff,True,2025-06-01,2025-06-01,
