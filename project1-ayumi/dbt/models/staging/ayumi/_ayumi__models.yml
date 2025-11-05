@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: stg_ayumi__users
+    description: 利用者ステージングテーブル
+    columns:
+      - name: user_id
+        description: 利用者ID
+        tests:
+          - unique
+          - not_null
+      - name: user_name
+        description: 利用者名
+        tests:
+          - not_null
+
+  - name: stg_ayumi__staffs
+    description: スタッフステージングテーブル
+    columns:
+      - name: staff_id
+        description: スタッフID
+        tests:
+          - unique
+          - not_null
+      - name: staff_name
+        description: スタッフ名
+        tests:
+          - not_null
+
+  - name: stg_ayumi__attendance_records
+    description: 出席記録ステージングテーブル
+    columns:
+      - name: attendance_id
+        description: 出席記録ID
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: 利用者ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_ayumi__users')
+              field: user_id
+      - name: attendance_date
+        description: 出席日
+        tests:
+          - not_null
+
+  - name: stg_ayumi__daily_reports_morning
+    description: 通所日報ステージングテーブル
+    columns:
+      - name: report_id
+        description: 日報ID
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: 利用者ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_ayumi__users')
+              field: user_id
+      - name: report_date
+        description: 日報日付
+        tests:
+          - not_null
+
+  - name: stg_ayumi__daily_reports_evening
+    description: 退所日報ステージングテーブル
+    columns:
+      - name: report_id
+        description: 日報ID
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: 利用者ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_ayumi__users')
+              field: user_id
+      - name: report_date
+        description: 日報日付
+        tests:
+          - not_null

@@ -1,0 +1,29 @@
+# dbt BigQuery接続設定のサンプル
+# このファイルを ~/.dbt/profiles.yml にコピーして使用してください
+
+ayumi_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth  # または service-account
+      project: mystic-now-474722-r4  # あなたのGCPプロジェクトID
+      dataset: ayumi_analytics       # デフォルトのデータセット名
+      threads: 4
+      timeout_seconds: 300
+      location: asia-northeast1      # Tokyo
+      priority: interactive
+
+      # service-accountメソッドを使う場合は以下を有効化
+      # method: service-account
+      # keyfile: /path/to/service-account-key.json
+
+    prod:
+      type: bigquery
+      method: oauth
+      project: mystic-now-474722-r4
+      dataset: ayumi_analytics_prod
+      threads: 8
+      timeout_seconds: 300
+      location: asia-northeast1
+      priority: interactive

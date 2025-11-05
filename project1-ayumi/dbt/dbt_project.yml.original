@@ -1,0 +1,57 @@
+name: 'ayumi_analytics'
+version: '1.0.0'
+config-version: 2
+
+# プロジェクト設定
+profile: 'ayumi_analytics'
+
+# ソースディレクトリの指定
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# ビルド成果物の出力先
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# モデルの設定
+models:
+  ayumi_analytics:
+    # Staging層: 生データのクリーニング・型変換
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ["staging"]
+
+    # Intermediate層: ビジネスロジックの適用
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+      +tags: ["intermediate"]
+
+    # Marts層: 最終的な分析用テーブル
+    marts:
+      +materialized: table
+      +schema: marts
+      +tags: ["marts"]
+
+# シードファイルの設定
+seeds:
+  ayumi_analytics:
+    +schema: seeds
+
+# スナップショットの設定
+snapshots:
+  ayumi_analytics:
+    +target_schema: snapshots
+    +strategy: timestamp
+    +updated_at: updated_at
+
+# ドキュメント生成設定
+docs:
+  target-path: "target"

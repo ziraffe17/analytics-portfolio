@@ -1,0 +1,199 @@
+# models/intermediate/schema.yml
+version: 2
+
+models:
+  - name: int_attendance__monthly
+    description: "利用者ごとの月次出席状況を集計した中間テーブル"
+    columns:
+      - name: user_id
+        description: "利用者ID"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_ayumi__users')
+              field: user_id
+      
+      - name: attendance_month
+        description: "集計対象月（月初日）"
+        tests:
+          - not_null
+      
+      - name: total_days
+        description: "当月の記録日数"
+        tests:
+          - not_null
+      
+      - name: present_days
+        description: "出席日数"
+        tests:
+          - not_null
+      
+      - name: absent_days
+        description: "欠席日数"
+      
+      - name: late_days
+        description: "遅刻日数"
+      
+      - name: early_leave_days
+        description: "早退日数"
+      
+      - name: attendance_rate
+        description: "出席率（%）"
+      
+      - name: approved_days
+        description: "承認済み日数"
+      
+      - name: morning_records
+        description: "午前の記録数"
+      
+      - name: afternoon_records
+        description: "午後の記録数"
+      
+      - name: fullday_records
+        description: "終日の記録数"
+      
+      - name: created_at
+        description: "レコード作成日時"
+        tests:
+          - not_null
+
+  - name: int_reports__user_summary
+    description: "利用者の日報（朝・夕）を統合し、報告状況を集計した中間テーブル"
+    columns:
+      - name: user_id
+        description: "利用者ID"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_ayumi__users')
+              field: user_id
+      
+      - name: report_date
+        description: "報告日"
+        tests:
+          - not_null
+      
+      - name: sleep_rating
+        description: "睡眠評価（朝報告）"
+      
+      - name: stress_rating
+        description: "ストレス評価（朝報告）"
+      
+      - name: meal_rating
+        description: "食事評価（朝報告）"
+      
+      - name: sleep_minutes
+        description: "睡眠時間（分）"
+      
+      - name: mood_score
+        description: "気分スコア"
+      
+      - name: training_summary
+        description: "訓練概要（夕報告）"
+      
+      - name: training_reflection
+        description: "訓練振り返り（夕報告）"
+      
+      - name: has_morning_report
+        description: "朝報告の有無"
+        tests:
+          - not_null
+      
+      - name: has_evening_report
+        description: "夕報告の有無"
+        tests:
+          - not_null
+      
+      - name: has_both_reports
+        description: "朝夕両方の報告有無"
+        tests:
+          - not_null
+      
+      - name: report_month
+        description: "報告月"
+        tests:
+          - not_null
+      
+      - name: monthly_morning_rate
+        description: "月次朝報告提出率（%）"
+      
+      - name: monthly_evening_rate
+        description: "月次夕報告提出率（%）"
+      
+      - name: monthly_avg_sleep_minutes
+        description: "月次平均睡眠時間（分）"
+      
+      - name: monthly_avg_sleep_rating
+        description: "月次平均睡眠評価"
+      
+      - name: monthly_avg_stress_rating
+        description: "月次平均ストレス評価"
+      
+      - name: monthly_avg_mood_score
+        description: "月次平均気分スコア"
+      
+      - name: created_at
+        description: "レコード作成日時"
+        tests:
+          - not_null
+
+  - name: int_relationships__staff_user
+    description: "スタッフと利用者の関係性を整理した中間テーブル"
+    columns:
+      - name: user_id
+        description: "利用者ID"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_ayumi__users')
+              field: user_id
+      
+      - name: user_name
+        description: "利用者名"
+        tests:
+          - not_null
+      
+      - name: user_is_active
+        description: "利用者のアクティブ状態"
+        tests:
+          - not_null
+      
+      - name: user_start_date
+        description: "利用開始日"
+      
+      - name: user_end_date
+        description: "利用終了日"
+      
+      - name: staff_id
+        description: "スタッフID"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_ayumi__staffs')
+              field: staff_id
+      
+      - name: staff_name
+        description: "スタッフ名"
+        tests:
+          - not_null
+      
+      - name: staff_role
+        description: "スタッフの役割"
+      
+      - name: staff_is_active
+        description: "スタッフのアクティブ状態"
+        tests:
+          - not_null
+      
+      - name: user_days
+        description: "利用日数"
+      
+      - name: staff_potential_workload
+        description: "スタッフの担当可能利用者数"
+        tests:
+          - not_null
+      
+      - name: created_at
+        description: "レコード作成日時"
+        tests:
+          - not_null

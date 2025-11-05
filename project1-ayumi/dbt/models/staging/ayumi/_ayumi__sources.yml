@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: ayumi_raw
+    description: あゆみSaaSの生データソース
+    database: mystic-now-474722-r4
+    schema: ayumi_raw
+    tables:
+      - name: users
+        description: 利用者マスタ
+        columns:
+          - name: id
+            description: 利用者ID
+            tests:
+              - unique
+              - not_null
+
+      - name: staffs
+        description: スタッフマスタ
+        columns:
+          - name: id
+            description: スタッフID
+            tests:
+              - unique
+              - not_null
+
+      - name: attendance_records
+        description: 出席記録
+        columns:
+          - name: id
+            description: 出席記録ID
+          - name: user_id
+            description: 利用者ID
+            tests:
+              - not_null
+          - name: record_date
+            description: 出席日
+            tests:
+              - not_null
+
+      - name: daily_reports_morning
+        description: 通所日報
+        columns:
+          - name: id
+            description: 日報ID
+          - name: user_id
+            description: 利用者ID
+          - name: report_date
+            description: 日報日付
+
+      - name: daily_reports_evening
+        description: 退所日報
+        columns:
+          - name: id
+            description: 日報ID
+          - name: user_id
+            description: 利用者ID
+          - name: report_date
+            description: 日報日付

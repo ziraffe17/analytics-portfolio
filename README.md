@@ -22,12 +22,16 @@ analytics-portfolio/
 ├── sql/                       # SQL練習・学習記録
 │   ├── week1-basics/         # Week 1: SQL基礎
 │   └── week1-leetcode/       # Week 1: LeetCode SQL問題
-├── project1-education/        # プロジェクト1: 教育データ分析（計画中）
-├── project2-ayumi/           # プロジェクト2: 就労支援SaaSデータ基盤
+├── project1-ayumi/           # プロジェクト1: 就労支援SaaSデータ基盤
+│   ├── dbt/                  # dbtプロジェクト
+│   │   ├── models/           # SQLモデル（staging/intermediate/marts）
+│   │   ├── tests/            # データ品質テスト
+│   │   ├── dbt_project.yml   # dbt設定
+│   │   └── README.md
 │   ├── data/                 # サンプルデータ・生成スクリプト
 │   ├── docs/                 # ドキュメント（DB設計書など）
 │   └── README.md
-├── dbt-project/              # dbtプロジェクト（今後使用予定）
+├── project2-education/        # プロジェクト2: 教育データ分析（計画中）
 ├── notebooks/                # Jupyter Notebook分析
 ├── data/                     # 共通サンプルデータ
 ├── docs/                     # 共通ドキュメント
@@ -44,16 +48,16 @@ analytics-portfolio/
 - ✅ CTE、サブクエリ
 - ✅ LeetCode SQL問題演習（Task19-40完了）
 
-### Week 2-3: プロジェクト2 - あゆみデータ基盤
+### Week 2-3: プロジェクト1 - あゆみデータ基盤
 - ✅ データベース設計
 - ✅ サンプルデータ生成スクリプト作成
 - ✅ BigQueryへのデータアップロード
-- ⏳ dbt Cloud環境構築
-- ⏳ staging/intermediate/marts層の実装
+- ✅ dbt Cloud環境構築
+- ✅ staging/intermediate/marts層の実装
 - ⏳ データ品質テスト
 - ⏳ Looker Studioダッシュボード作成
 
-### Week 4: プロジェクト1 - 教育データ分析
+### Week 4: プロジェクト2 - 教育データ分析
 - ⏳ Kaggle教育データ取得
 - ⏳ BigQueryへのデータ取り込み
 - ⏳ dbt実装
@@ -68,26 +72,7 @@ analytics-portfolio/
 
 ## 📚 主要プロジェクト
 
-### プロジェクト1: 教育データ分析（計画中）
-教育から就労への移行成功要因分析
-
-**技術:**
-- Kaggle教育データ
-- BigQuery + dbt
-- Jupyter Notebook
-- Looker Studio
-
-**成果物:**
-- 相関分析
-- 地域格差分析
-- 成功要因の特定
-
-**リンク:**
-- [プロジェクト詳細](./project1-education/)
-
----
-
-### プロジェクト2: 就労支援SaaS データ分析基盤
+### プロジェクト1: 就労支援SaaS データ分析基盤
 
 **福祉×データという差別化された専門性を証明するプロジェクト**
 
@@ -113,10 +98,30 @@ analytics-portfolio/
 - 事業所稼働率: 80%以上
 
 #### リンク
-- 📂 [プロジェクト詳細](./project2-ayumi/)
-- 🗂️ [データベース設計書](./project2-ayumi/docs/database_design.md)
-- 🚀 [BigQueryセットアップ手順](./project2-ayumi/docs/bigquery_upload_guide.md)
-- 🐍 [サンプルデータ生成スクリプト](./project2-ayumi/data/scripts/)
+- 📂 [プロジェクト詳細](./project1-ayumi/)
+- 🗂️ [データベース設計書](./project1-ayumi/docs/database_design.md)
+- 🚀 [BigQueryセットアップ手順](./project1-ayumi/data/sample/BIGQUERY_UPLOAD_GUIDE.md)
+- 🐍 [サンプルデータ生成スクリプト](./project1-ayumi/data/scripts/)
+- 📊 [Looker Studioダッシュボード](https://lookerstudio.google.com/reporting/314e9b61-8c65-4adb-92ca-2fd9a6b5e171)
+
+---
+
+### プロジェクト2: 教育データ分析（計画中）
+教育から就労への移行成功要因分析
+
+**技術:**
+- Kaggle教育データ
+- BigQuery + dbt
+- Jupyter Notebook
+- Looker Studio
+
+**成果物:**
+- 相関分析
+- 地域格差分析
+- 成功要因の特定
+
+**リンク:**
+- [プロジェクト詳細](./project2-education/)
 
 ---
 
@@ -133,10 +138,12 @@ analytics-portfolio/
 - ✅ Task18: CTE・サブクエリ
 - ✅ Task19-40: LeetCode SQL問題演習（22問完了）
 
-### Week 2: プロジェクト2 準備
+### Week 2: プロジェクト1 準備・実装
 - ✅ Task41: データベース設計書作成
 - ✅ Task42: サンプルデータ生成スクリプト作成
 - ✅ Task43: BigQueryセットアップ
+- ✅ Task44: dbtモデル実装（staging/intermediate/marts）
+- ✅ Task45: Looker Studioダッシュボード作成
 
 ### 主な学び
 - データの粒度に注意（集計レベルの理解）
